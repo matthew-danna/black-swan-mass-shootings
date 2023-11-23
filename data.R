@@ -42,10 +42,11 @@ for (urls in results) {
 }
 
 gva$date <- as.Date(gva$Incident.Date, format = "%B %d, %Y")
-gva$total.victims <- gva$X..Killed + gva$X..Injured
+gva$total.victims <- gva$Victims.Killed + gva$Victims.Injured
 gva$day <- weekdays(gva$date)
 gva$year <- substr(gva$date, 0, 4)
-gva <- gva[c(1,9,11,12,4,3,6,7,10)]
+gva <- subset(gva, select = c("Incident.ID","date","day","year","City.Or.County","State","Victims.Killed",
+                              "Victims.Injured","total.victims"))
 names(gva) <- c("event", "date", "dow", "year", "city", "state", "killed", "injured", "total")
 gva <- gva[!duplicated(gva), ]
 
@@ -103,7 +104,7 @@ mj$temp.date <- paste(mj$temp.month, mj$temp.day, mj$temp.year, sep = "/")
 mj$date <- as.Date(mj$temp.date, format = "%m/%d/%y")
 mj <- separate(data = mj, col = location, into = c("city", "state"), sep = ", ")
 mj$day <- weekdays(mj$date)
-mj <- mj[c(1,4,30,25,2,3,6,7,8)]
+mj <- subset(mj, select = c("case","date","day","year","city","state","fatalities","injured","total_victims"))
 names(mj) <- c("event", "date", "dow", "year", "city", "state", "killed", "injured", "total")
 
 mj.sub <- subset(mj, mj$date < '1998-03-24')
@@ -136,13 +137,31 @@ events.ad.injured <- subset(events, events$injured >= min(counts.ad.injured$anom
 events.ad <- rbind(events.ad.tot, events.ad.killed, events.ad.injured)
 events.ad <- events.ad[!duplicated(events.ad), ]
 
-# qualitative review for excluding mutual perpetrator events
+new.events <- subset(events.ad$event, events.ad$date > '2018-11-07')
+incident <- 'https://www.gunviolencearchive.org/incident/'
+incidents <- paste0(incident, new.events)
+
+tmp <- 'https://www.gunviolencearchive.org/incident/2242153'
+
+tmp <- read_html('https://www.gunviolencearchive.org/incident/2242153') %>%
+  html_nodes(xpath = '/html/body/section/div/div/div/div[2]/div/div[3]')
+
+get.incidents <- function(site) {
+  site %>%
+    read_html()%>%
+    html_nodes(xpath = '//*[@id="content"]/div/div/div') %>%
+    html_table()
+}
+
+##### qualitative review for excluding mutual perpetrator events
 events.valid <- events.ad %>%
-  filter(event != '879953', event != '1142789', event != '803054', event != '611479', event != '604233', event != '545525',
+  filter(event != '879953', event != '1142789', event != '803054', event != '611479', event != '604233', 
+         event != '545525',
          event != '390526', event != '192851' , event != '1600787', event != '1635750', event != '1741838', event != '1758966',
          event != '1799307', event != '2012765', event != '2019622', event != '2032220', event != '2137198', event != '2237593',
          event != '2242153', event != '2257739', event != '2269082', event != '2269100', event != '2301494', event != '2449653')
 
-nonmatches <- as.character(c())
-
 # original study start: 3/24/1998
+
+
+'/html/body/section/div/div/div/div[2]/div/div[3]'
