@@ -13,8 +13,8 @@ library(AnomalyDetection)
 `%notin` <- Negate(`%in%`)
 
 ##### get the GVA data
-years <- as.character(2014:2023)
-pages <- 0:32 # works if there's less than 775 shootings in a year (31 pages*25 events)
+years <- as.character(2014:2024)
+pages <- 0:33 # works if there's less than 775 shootings in a year (31 pages*25 events)
 url <- 'https://www.gunviolencearchive.org/reports/mass-shooting'
 urls <- paste0(url, "?page=", pages)
 
