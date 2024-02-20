@@ -143,7 +143,10 @@ events.valid <- events.ad %>%
          event != '545525', event != '390526', event != '192851' , event != '1600787', event != '1635750', 
          event != '1741838', event != '1758966', event != '1799307', event != '2012765', event != '2019622', 
          event != '2032220', event != '2137198', event != '2237593', event != '2242153', event != '2257739', 
-         event != '2269082', event != '2269100', event != '2301494', event != '2449653')
+         event != '2269082', event != '2269100', event != '2301494', event != '2449653', event != '1681588',
+         event != '1725690', event != '1739434', event != '1952281', event != '2187990', event != '2544566',
+         event != '2573436', event != '2605263', event != '2628072', event != '2640219', event != '2666933',
+         event != '2742143', event != '2742030', event != '2808531', event != '2828642')
 
 ##### original study start: 3/24/1998
 ##### events verified thru: 
