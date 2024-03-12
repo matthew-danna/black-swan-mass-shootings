@@ -140,7 +140,7 @@ events.ad <- events.ad[!duplicated(events.ad), ]
 ##### qualitative review for excluding mutual perpetrator events
 events.valid <- events.ad %>%
   filter(event != '879953', event != '1142789', event != '803054', event != '611479', event != '604233', 
-         event != '545525', event != '390526', event != '192851' , event != '1600787', event != '1635750', 
+         event != '545525', event != '390526', event != '192851', event != '1600787', event != '1635750', 
          event != '1741838', event != '1758966', event != '1799307', event != '2012765', event != '2019622', 
          event != '2032220', event != '2137198', event != '2237593', event != '2242153', event != '2257739', 
          event != '2269082', event != '2269100', event != '2301494', event != '2449653', event != '1681588',
